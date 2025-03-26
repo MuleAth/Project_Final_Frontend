@@ -1,0 +1,396 @@
+/* Sportalon Chatbot - Modern Sports Assistant */
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+
+  .chatbot-button {
+    background: linear-gradient(135deg, #9932CC, #7B68EE);
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    box-shadow: 0px 4px 12px rgba(138, 43, 226, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bot-icon {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .chatbot-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0px 10px 25px rgba(138, 43, 226, 0.6);
+  }
+
+  .chatbot-button:hover .bot-icon {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+
+  .chat-window {
+    width: 340px;
+    height: 480px;
+    background: linear-gradient(to bottom, #f0f0ff, #e6e6fa);
+    border: 2px solid #8a2be2;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
+    margin-bottom: 15px;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .chat-header {
+    background: linear-gradient(135deg, #9932CC, #7B68EE);
+    color: white;
+    padding: 14px 16px;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .chat-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="3" cy="3" r="1.5" fill="rgba(255,255,255,0.2)"/><circle cx="10" cy="3" r="1" fill="rgba(255,255,255,0.2)"/><circle cx="17" cy="3" r="1.5" fill="rgba(255,255,255,0.2)"/><circle cx="3" cy="10" r="1" fill="rgba(255,255,255,0.2)"/><circle cx="10" cy="10" r="1.5" fill="rgba(255,255,255,0.2)"/><circle cx="17" cy="10" r="1" fill="rgba(255,255,255,0.2)"/><circle cx="3" cy="17" r="1.5" fill="rgba(255,255,255,0.2)"/><circle cx="10" cy="17" r="1" fill="rgba(255,255,255,0.2)"/><circle cx="17" cy="17" r="1.5" fill="rgba(255,255,255,0.2)"/></svg>');
+    opacity: 0.3;
+  }
+
+  .chat-header span {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .chat-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .chat-header button:hover {
+    opacity: 1;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    max-height: 350px;
+    scrollbar-width: thin;
+    scrollbar-color: #8a2be2 transparent;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path d="M20 5L25 15L35 17L28 25L30 35L20 30L10 35L12 25L5 17L15 15Z" fill="rgba(138, 43, 226, 0.03)"/></svg>');
+    background-size: 100px 100px;
+  }
+
+  .chat-body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .chat-body::-webkit-scrollbar-thumb {
+    background-color: #8a2be2;
+    border-radius: 3px;
+  }
+
+  .chat-body::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .chat-footer {
+    display: flex;
+    padding: 12px;
+    background: linear-gradient(to right, #f0f0ff, #e6e6fa);
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid rgba(138, 43, 226, 0.2);
+  }
+
+  .chat-footer input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    border-radius: 20px;
+    outline: none;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .chat-footer input:focus {
+    border-color: #8a2be2;
+    box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+  }
+
+  .chat-footer button {
+    background: linear-gradient(135deg, #9932CC, #7B68EE);
+    border: none;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .chat-footer button:hover {
+    background: linear-gradient(135deg, #8a2be2, #6a5acd);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Restart button same size as Send button */
+  .restart-button {
+    background: linear-gradient(135deg, #9932CC, #7B68EE);
+    border: none;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .restart-button:hover {
+    background: linear-gradient(135deg, #8a2be2, #6a5acd);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Message styles */
+  .chat-message {
+    margin-bottom: 12px;
+    max-width: 85%;
+    word-wrap: break-word;
+    line-height: 1.4;
+    font-size: 14px;
+    position: relative;
+  }
+
+  .chat-message.user {
+    align-self: flex-end;
+    background-color: rgba(138, 43, 226, 0.1);
+    color: #333;
+    border-radius: 18px 18px 4px 18px;
+    padding: 10px 14px;
+    margin-left: auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Box styles for clickable text */
+  .chat-message.bot {
+    border: 2px solid #8a2be2;
+    border-radius: 18px 18px 18px 4px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    background: linear-gradient(to right, rgba(240, 240, 255, 0.9), rgba(230, 230, 250, 0.9));
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chat-message.bot:hover {
+    border-color: #9932CC;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .chat-message.bot.option {
+    background: linear-gradient(135deg, rgba(153, 50, 204, 0.1), rgba(123, 104, 238, 0.1));
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin: 6px 0;
+    display: inline-block;
+    font-weight: 500;
+    color: #6a5acd;
+    transition: all 0.3s ease;
+  }
+
+  .chat-message.bot.option:hover {
+    background: linear-gradient(135deg, rgba(153, 50, 204, 0.2), rgba(123, 104, 238, 0.2));
+    border-color: rgba(138, 43, 226, 0.5);
+    color: #8a2be2;
+  }
+
+  /* Sports-themed elements */
+  .chat-message.bot.option::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="rgba(138, 43, 226, 0.1)" stroke-width="0.5" stroke-dasharray="2 2"/></svg>');
+    background-size: 40px 40px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Icon styling */
+  .option-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+    color: #8a2be2;
+  }
+
+  /* Header message styling */
+  .chat-message.bot.header {
+    font-weight: 600;
+    font-size: 15px;
+    color: #6a5acd;
+    border-left: 3px solid #8a2be2;
+    background: linear-gradient(to right, rgba(138, 43, 226, 0.1), transparent);
+    padding-left: 12px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Action button styling */
+  .chat-message.bot.action {
+    background: linear-gradient(135deg, #9932CC, #7B68EE);
+    color: white;
+    text-align: center;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+  }
+
+  .chat-message.bot.action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Loading message */
+  .chat-message.bot.loading {
+    font-style: italic;
+    color: #6a5acd;
+    background-color: rgba(138, 43, 226, 0.05);
+  }
+
+  /* Typing indicator */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+  }
+
+  .typing-indicator span {
+    height: 8px;
+    width: 8px;
+    margin: 0 2px;
+    background-color: #8a2be2;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.4;
+    animation: typing 1.4s infinite ease-in-out both;
+  }
+
+  .typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes typing {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+  }
+
+  /* Sportalon branding */
+  .chat-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="rgba(255,255,255,0.2)"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm3 7h-2v2h-2v-2H9v-2h2V9h2v2h2v2z" fill="rgba(255,255,255,0.2)"/></svg>');
+    background-size: contain;
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  
